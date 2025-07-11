@@ -5,8 +5,7 @@ const { logger } = require('../../utility/logger');
 // Register Controller
 const registerHandler = async (req, res) => {
   try {
-    const result = await registerService(req.body); // or req.payload if using Hapi
-
+    const result = await registerService(req.body);
     if (result.isBoom) {
       const { output } = result;
       return res.status(output.statusCode).json(output.payload);
@@ -35,7 +34,7 @@ const loginHandler = async (req, res) => {
 
     return res.status(result.statusCode).json(result.data);
   } catch (error) {
-    logger.error(error); // ✅ minimal error logging
+    logger.error(error);
     const formatted = formatResponse(error.message, 500);
     const { output } = formatted;
     return res.status(output.statusCode).json(output.payload);
