@@ -1,4 +1,3 @@
-// models/User.js
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../db/db');
 
@@ -11,12 +10,13 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false
   },
-  email: {
-    type: DataTypes.STRING,
+  phone: {
+    type: DataTypes.STRING(15),
     allowNull: false,
     unique: true,
     validate: {
-      isEmail: true
+      isNumeric: true,
+      len: [10, 15] // optional: for Indian or international formats
     }
   },
   password: {
@@ -28,8 +28,8 @@ const User = sequelize.define('User', {
     allowNull: true
   }
 }, {
-  tableName: 'users', // optional: defines table name explicitly
-  timestamps: false    // adds createdAt and updatedAt fields
+  tableName: 'users',
+  timestamps: false, // Enables createdAt and updatedAt
 });
 
 module.exports = User;
